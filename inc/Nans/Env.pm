@@ -8,7 +8,7 @@ sub new {
     my $opt = {
         CC       => 'cc',
         LD       => 'cc',
-        LDFLAGS  => '-fstack-protector',
+        LDFLAGS  => '',
         OPTIMIZE => '-O2 -g',
         CCFLAGS  => '',
         LIBS     => [],

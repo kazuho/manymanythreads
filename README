@@ -1,0 +1,10 @@
+What's this?
+============
+This repo. contains very fast echo server/client, http server/client for benchmarking.
+
+how to use this?
+================
+
+perl Makefile.PL
+make
+

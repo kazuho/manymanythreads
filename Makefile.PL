@@ -5,7 +5,7 @@ my $poller =   is_linux() ? 'epoll'
              :              'select';
 my $picoev = "picoev/picoev_$poller.c";
 
-my $env = env(CPPPATH => ['picoev/', 'picohttpparser/']);
+my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/']);
 $env->program('testechoclient' => ["testechoclient.c", $picoev]);
 $env->program('testhttpclient' => ["testhttpclient.c", $picoev]);
 $env->program('picoev_echod' => ["picoev_echod.c", $picoev]);

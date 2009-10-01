@@ -5,6 +5,7 @@ use warnings;
 our $VERSION = '0.01';
 use 5.008000;
 use Module::Install::ForC::Env;
+use Config;
 
 use Module::Install::Base;
 our @ISA     = qw(Module::Install::Base);
@@ -13,7 +14,7 @@ our @targets;
 our %OBJECTS;
 our $postamble;
 
-sub env {
+sub env_for_c {
     my $self = shift;
     Module::Install::ForC::Env->new(@_)
 }
@@ -33,6 +34,7 @@ all: @Module::Install::ForC::targets
 clean:
 	rm @Module::Install::ForC::targets @{[ keys %Module::Install::ForC::OBJECTS ]}
 	rm Makefile
+	$Config{rm_try}
 
 $Module::Install::ForC::postamble
 ...
@@ -43,4 +45,4 @@ $Module::Install::ForC::postamble
 1;
 __END__
 
-#line 68
+#line 130

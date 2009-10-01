@@ -22,8 +22,8 @@ sub import {
 sub env {
     Nans::Env->new(@_)
 }
-sub is_linux { $^O eq 'linux'  }
-sub is_mac   { $^O eq 'darwin' }
+sub is_linux () { $^O eq 'linux'  }
+sub is_mac   () { $^O eq 'darwin' }
 sub WriteMakefile {
     open my $fh, '>', 'Makefile' or die "cannot open file: $!";
     print $fh <<"...";

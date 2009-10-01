@@ -4,3 +4,5 @@ mt_echod
 mt_httpd
 picoev_httpd
 testhttpclient
+*.o
+Makefile

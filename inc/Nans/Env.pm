@@ -1,6 +1,7 @@
 package Nans::Env;
 use strict;
 use warnings;
+use Storable ();
 
 sub new {
     my $class = shift;
@@ -16,16 +17,31 @@ sub new {
     $opt->{CPPPATH} = [$opt->{CPPPATH}] unless ref $opt->{CPPPATH};
     bless $opt, $class;
 }
+
+sub clone {
+    my $self = shift;
+    return Storable::dclone($self);
+}
+
+sub append {
+    my ($self, $key, $val) = @_;
+
+    if ((ref($self->{$key})||'') eq 'ARRAY') {
+        push @{ $self->{$key} }, @{$val};
+    } else {
+        $self->{$key} = $val;
+    }
+}
+
 sub program {
     my ($self, $bin, $srcs, %specific_opts) = @_;
-    my %opts = %$self;
-    while (my ($key, $val) = each %specific_opts) {
-        if ((ref($opts{$key})||'') eq 'ARRAY') {
-            push @{ $opts{$key} }, @{$val};
-        } else {
-            $opts{$key} = $val;
+    my %opts = do {
+        my $clone = $self->clone;
+        while (my ($key, $val) = each %specific_opts) {
+            $clone->append($key => $val);
         }
-    }
+        %$clone;
+    };
 
     push @Nans::targets, $bin;
 

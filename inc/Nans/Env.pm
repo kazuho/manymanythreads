@@ -2,15 +2,16 @@ package Nans::Env;
 use strict;
 use warnings;
 use Storable ();
+use Config;
 
 sub new {
     my $class = shift;
     my $opt = {
-        CC       => 'cc',
-        LD       => 'cc',
-        LDFLAGS  => '',
-        OPTIMIZE => '-O2 -g',
-        CCFLAGS  => '',
+        CC       => $Config{cc},
+        LD       => $Config{ld},
+        LDFLAGS  => $Config{ldflags},
+        OPTIMIZE => $Config{optimize},
+        CCFLAGS  => $Config{ccflags},
         LIBS     => [],
         @_
     };

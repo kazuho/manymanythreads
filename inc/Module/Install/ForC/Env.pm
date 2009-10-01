@@ -1,4 +1,5 @@
-package Nans::Env;
+#line 1
+package Module::Install::ForC::Env;
 use strict;
 use warnings;
 use Storable ();
@@ -44,12 +45,12 @@ sub program {
         %$clone;
     };
 
-    push @Nans::targets, $bin;
+    push @Module::Install::ForC::targets, $bin;
 
     my @objects = map { my $x = $_; $x =~ s/\.c$/\.o/; $x } @$srcs;
     my @libs = map { "-l$_" } @{$opts{LIBS}};
 
-    $Nans::postamble .= <<"...";
+    $Module::Install::ForC::postamble .= <<"...";
 $bin: @objects
 	$opts{LD} @libs $opts{LDFLAGS} -o $bin @objects
 
@@ -57,8 +58,8 @@ $bin: @objects
 
     my @cppopts = map { "-I $_" } @{ $opts{CPPPATH} };
     for my $i (0..@$srcs-1) {
-        next if $Nans::OBJECTS{$objects[$i]}++ != 0;
-        $Nans::postamble .= <<"...";
+        next if $Module::Install::ForC::OBJECTS{$objects[$i]}++ != 0;
+        $Module::Install::ForC::postamble .= <<"...";
 $objects[$i]: $srcs->[$i]
 	$opts{CC} $opts{CCFLAGS} @cppopts -c -o $objects[$i] $srcs->[$i]
 ...

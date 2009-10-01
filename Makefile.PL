@@ -1,4 +1,4 @@
-use inc::Nans;
+use inc::Module::Install;
 
 my $poller =   is_linux() ? 'epoll'
              : is_mac()   ? 'kqueue'
@@ -17,5 +17,5 @@ $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/pico
     $mtenv->program('mt_httpd' => ["mt_httpd.c", 'picohttpparser/picohttpparser.c'], LIBS => ['pthread']);
 }
 
-WriteMakefile();
+WriteMakefileForC();
 

@@ -3,12 +3,13 @@ use inc::Nans;
 my $poller =   is_linux() ? 'epoll'
              : is_mac()   ? 'kqueue'
              :              'select';
+my $picoev = "picoev/picoev_$poller.c";
 
 my $env = env(CPPPATH => ['picoev/', 'picohttpparser/'], LD => 'cc', CC => 'cc');
-$env->program('testechoclient' => ["testechoclient.c", "picoev/picoev_$poller.c"]);
-$env->program('testhttpclient' => ["testhttpclient.c", "picoev/picoev_$poller.c"]);
-$env->program('picoev_echod' => ["picoev_echod.c", "picoev/picoev_$poller.c"]);
-$env->program('picoev_httpd' => ["picoev_httpd.c", "picoev/picoev_$poller.c", 'picohttpparser/picohttpparser.c']);
+$env->program('testechoclient' => ["testechoclient.c", $picoev]);
+$env->program('testhttpclient' => ["testhttpclient.c", $picoev]);
+$env->program('picoev_echod' => ["picoev_echod.c", $picoev]);
+$env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/picohttpparser.c']);
 {
     my $mtenv = $env->clone();
     $mtenv->append(LIBS => ['pthread']) if is_linux;

@@ -1,2 +1,6 @@
 picoev_echod
 testechoclient
+mt_echod
+mt_httpd
+picoev_httpd
+testhttpclient

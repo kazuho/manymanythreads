@@ -34,7 +34,6 @@
 extern "C" {
 # define PICOEV_INLINE inline
 #else
-  /* http://gmplib.org/list-archives/gmp-discuss/2008-March/003089.html */
 # define PICOEV_INLINE static __inline__
 #endif
 

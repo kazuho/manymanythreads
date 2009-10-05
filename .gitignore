@@ -6,3 +6,4 @@ picoev_httpd
 testhttpclient
 *.o
 Makefile
+testmsgpackrpcclient

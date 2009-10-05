@@ -15,6 +15,7 @@ for my $type (qw/echo http msgpackrpc jsonrpc/) {
 # picoev based servers
 $env->program('picoev_echod' => ["picoev_echod.c", $picoev]);
 $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/picohttpparser.c']);
+$env->program('picoev_jsonrpcd' => ["picoev_jsonrpcd.cc", $picoev]);
 if ($env->have_library('msgpackc')) {
     $env->program('picoev_msgpackrpcd' => ["picoev_msgpackrpcd.cc", $picoev], LIBS => ['msgpack', 'msgpackc']);
 }

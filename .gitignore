@@ -8,3 +8,4 @@ testhttpclient
 Makefile
 testmsgpackrpcclient
 testjsonrpcclient
+picoev_msgpackrpcd

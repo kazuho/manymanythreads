@@ -5,7 +5,7 @@ my $poller =   is_linux() ? 'epoll'
              :              'select';
 my $picoev = "picoev/picoev_$poller.c";
 
-my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/']);
+my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/'], CCFLAGS => '-g');
 
 # client
 for my $type (qw/echo http msgpackrpc jsonrpc/) {
@@ -15,6 +15,7 @@ for my $type (qw/echo http msgpackrpc jsonrpc/) {
 # picoev based servers
 $env->program('picoev_echod' => ["picoev_echod.c", $picoev]);
 $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/picohttpparser.c']);
+$env->program('picoev_msgpackrpcd' => ["picoev_msgpackrpcd.cc", $picoev], LIBS => ['msgpack', 'msgpackc']);
 
 # multithreaded servers
 {

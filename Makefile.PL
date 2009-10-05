@@ -9,6 +9,7 @@ my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/']);
 $env->program('testechoclient' => ["testechoclient.c", $picoev]);
 $env->program('testhttpclient' => ["testhttpclient.c", $picoev]);
 $env->program('testmsgpackrpcclient' => ["testmsgpackrpcclient.c", $picoev]);
+$env->program('testjsonrpcclient' => ["testjsonrpcclient.c", $picoev]);
 $env->program('picoev_echod' => ["picoev_echod.c", $picoev]);
 $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/picohttpparser.c']);
 {

@@ -7,3 +7,4 @@ testhttpclient
 *.o
 Makefile
 testmsgpackrpcclient
+testjsonrpcclient

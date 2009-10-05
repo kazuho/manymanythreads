@@ -6,10 +6,9 @@ my $poller =   is_linux() ? 'epoll'
 my $picoev = "picoev/picoev_$poller.c";
 
 my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/']);
-$env->program('testechoclient' => ["testechoclient.c", $picoev]);
-$env->program('testhttpclient' => ["testhttpclient.c", $picoev]);
-$env->program('testmsgpackrpcclient' => ["testmsgpackrpcclient.c", $picoev]);
-$env->program('testjsonrpcclient' => ["testjsonrpcclient.c", $picoev]);
+for my $type (qw/echo http msgpackrpc jsonrpc/) {
+    $env->program("test${type}client" => ["test${type}client.c", $picoev]);
+}
 $env->program('picoev_echod' => ["picoev_echod.c", $picoev]);
 $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/picohttpparser.c']);
 {

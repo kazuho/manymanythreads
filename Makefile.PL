@@ -21,7 +21,15 @@ if ($env->have_library('msgpackc')) {
 }
 if ($env->have_library('thrift')) {
     my $tenv = $env->clone()->parse_config(`pkg-config thrift --cflags --libs`);
-    $tenv->program('thriftd' => [map { "thrift/gen-cpp/$_.cpp" } qw/Echo_server Echo/]);
+    $tenv->program('thrift_simpled' => [map { "thrift/gen-cpp/$_.cpp" } qw/Echo_server-simple Echo/]);
+    $tenv->program('thrift_threadd' => [map { "thrift/gen-cpp/$_.cpp" } qw/Echo_server-thread Echo/]);
+
+    if ($env->have_library('event')) {
+        my $nbenv = $tenv->clone()->append(LIBS => 'event');
+        if ($nbenv->have_library('thriftnb')) {
+            $nbenv->program('thrift_nbd' => [map { "thrift/gen-cpp/$_.cpp" } qw/Echo_server-nb Echo/], LIBS => 'thriftnb');
+        }
+    }
 }
 
 # multithreaded servers

@@ -126,8 +126,9 @@ sub try_cc {
         SUFFIX => '.c',
         UNLINK => 1,
     );
+    my $executable = File::Temp->new(UNLINK => 1);
     print $ch $src;
-    my $cmd = "$self->{CC} @{[ $self->_libs ]} @{[ $self->_cpppath ]} @{ $self->{CCFLAGS} } $cfile";
+    my $cmd = "$self->{CC} -o $executable @{[ $self->_libs ]} @{[ $self->_cpppath ]} @{ $self->{CCFLAGS} } $cfile";
     print "$cmd\n" if DEBUG;
     my $exit_status = _quiet_system($cmd);
     WIFEXITED($exit_status) && WEXITSTATUS($exit_status) == 0 ? 1 : 0;
@@ -355,4 +356,4 @@ int main() {
 1;
 __END__
 
-#line 453
+#line 454

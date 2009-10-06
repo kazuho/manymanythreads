@@ -2,7 +2,7 @@
 package Module::Install::ForC;
 use strict;
 use warnings;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 use 5.008000;
 use Module::Install::ForC::Env;
 use Config;

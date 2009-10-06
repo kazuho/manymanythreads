@@ -100,6 +100,7 @@ sub parse_config {
             next;
         };
     }
+    return $self;
 }
 
 sub install_bin {
@@ -354,4 +355,4 @@ int main() {
 1;
 __END__
 
-#line 450
+#line 453

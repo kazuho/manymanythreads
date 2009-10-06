@@ -8,7 +8,7 @@ my $picoev = "picoev/picoev_$poller.c";
 my $env = env_for_c(CPPPATH => ['picoev/', 'picohttpparser/'], CCFLAGS => '-g');
 
 # client
-for my $type (qw/echo http msgpackrpc jsonrpc/) {
+for my $type (qw/echo http msgpackrpc jsonrpc thrift/) {
     $env->program("test${type}client" => ["test${type}client.c", $picoev]);
 }
 
@@ -18,6 +18,10 @@ $env->program('picoev_httpd' => ["picoev_httpd.c", $picoev, 'picohttpparser/pico
 $env->program('picoev_jsonrpcd' => ["picoev_jsonrpcd.cc", $picoev]);
 if ($env->have_library('msgpackc')) {
     $env->program('picoev_msgpackrpcd' => ["picoev_msgpackrpcd.cc", $picoev], LIBS => ['msgpack', 'msgpackc']);
+}
+if ($env->have_library('thrift')) {
+    my $tenv = $env->clone()->parse_config(`pkg-config thrift --cflags --libs`);
+    $tenv->program('thriftd' => [map { "thrift/gen-cpp/$_.cpp" } qw/Echo_server Echo/]);
 }
 
 # multithreaded servers
